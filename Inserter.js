@@ -9,6 +9,7 @@
         const self = this;
         self.language = returnSupportedLanguage(language, isLanguageSupported);
         self.word = word || insertedWord[self.language];
+        self.selector = "";
     };
 
     // Language support ---------------------------------------------------------
@@ -92,10 +93,24 @@
         },
 
         /**
+         * Sets the word used in the library
+         * @param {string} word 
+         */
+        setSelector: function(selector) {
+            if (typeof selector === "string") {
+                this.selector = selector;
+            } else {
+                console.error("Selector must be a string");
+            }
+
+            return this;
+        },
+
+        /**
          * Changes every span inner text to the set word
          */
         populateHtmlWithWord: function() {
-            const spans = $("span");
+            const spans = $(this.selector);
             
             for (let index = 0; index < spans.length; index++) {
                 spans[index].innerHTML = this.word;

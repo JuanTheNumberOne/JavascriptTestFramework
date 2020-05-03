@@ -1,11 +1,12 @@
-const inserter = $I()
-.setLanguage($I.availableLanguages.english)
-.setWord("STONKS");
+const inserter = $I("","")
+.setWord("STONKS!")
+.setSelector("span");
+
 console.info(inserter);
 
 setTimeout(() => {
     inserter.populateHtmlWithWord();
-}, 3000)
+}, 3000);
 
 
 
