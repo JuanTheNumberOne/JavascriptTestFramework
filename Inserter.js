@@ -11,11 +11,6 @@
         self.word = word || insertedWord[self.language];
     };
 
-    // Set the prototype of the inserter
-    Inserter.prototype = { test: "test"};
-    // Set the prototype of init to point to the prototype of Inserter
-    Inserter.init.prototype = Inserter.prototype;
-
     // Language support ---------------------------------------------------------
     const supportedLanguages = {
         english: "en-GB",
@@ -48,6 +43,9 @@
         }
     }
 
+    // Expose the languages as a new object
+    Inserter.availableLanguages = { ...supportedLanguages};
+
     //--------------------------------------------------------------------------
     
     // Inserted word  ----------------------------------------------------
@@ -58,8 +56,57 @@
         obj[supportedLanguages.polish] = "Po prostu Dziala!";
 
         return obj;
-    })()
+    })();
     // --------------------------------------------------------------------------
+
+    // Set the prototype of the inserter
+    Inserter.prototype = { 
+        /**
+         * Changes the language, if supported. Resets the word
+         * @param {string} language 
+         * @returns {Inserter object}
+         */
+        setLanguage: function(language) {
+            if (isLanguageSupported(language)) {
+                this.language = language;
+                this.word = "";
+            } else {
+                displayLanguageNotSupportedError(language);
+            }
+
+            return this;
+        },
+
+        /**
+         * Sets the word used in the library
+         * @param {string} word 
+         */
+        setWord: function(word) {
+            if (typeof word === "string") {
+                this.word = word;
+            } else {
+                console.error("Word must be a string");
+            }
+
+            return this;
+        },
+
+        /**
+         * Changes every span inner text to the set word
+         */
+        populateHtmlWithWord: function() {
+            const spans = $("span");
+            
+            for (let index = 0; index < spans.length; index++) {
+                spans[index].innerHTML = this.word;
+                
+            }
+
+            return this;
+        }
+    };
+    // Set the prototype of init to point to the prototype of Inserter
+    Inserter.init.prototype = Inserter.prototype;
 
     // Create the global object referencing the library object
     if (global && !global.Inserter && !global.$I) {
