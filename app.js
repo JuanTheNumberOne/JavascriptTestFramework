@@ -1,6 +1,5 @@
 const inserter = $I("","")
-.setWord("STONKS!")
-.setSelector("span");
+.setWord("STONKS!");
 
 console.info(inserter);
 
