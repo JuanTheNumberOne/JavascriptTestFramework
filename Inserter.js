@@ -1,5 +1,4 @@
 (function (global, jQuery) {
-
     // Setting up the inserter library
     const Inserter = function(word, language) {
         return new Inserter.init(word, language);
@@ -17,7 +16,7 @@
     Inserter.init.prototype = Inserter.prototype;
 
     // Create the global object referencing the library object
-    if (global && !global.hasOwnProperty(Inserter)) {
+    if (global && !global.Inserter && !global.$I) {
         global.Inserter = global.$I = Inserter;
     };
 
