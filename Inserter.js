@@ -1,4 +1,4 @@
-(function (global, jQuery) {
+;(function (global, jQuery) {
     // Setting up the inserter library
     const Inserter = function(word, language) {
         return new Inserter.init(word, language);
@@ -49,7 +49,7 @@
 
     //--------------------------------------------------------------------------
     
-    // Inserted word  ----------------------------------------------------
+    // Inserted default word  ----------------------------------------------------
     const insertedWord = (function(){
         const obj = {};
         obj[supportedLanguages.english] = "It just Works!";
@@ -110,9 +110,9 @@
          * Changes every span inner text to the set word
          */
         populateHtmlWithWord: function() {
-            if (!$) throw new Error("No jQuery loaded"); 
+            if (!jQuery) throw new Error("No jQuery loaded"); 
             if (!this.selector) throw new Error("No selector set"); 
-            const spans = $(this.selector);
+            const spans = jQuery(this.selector);
             
             for (let index = 0; index < spans.length; index++) {
                 spans[index].innerHTML = this.word;
