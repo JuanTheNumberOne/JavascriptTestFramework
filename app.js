@@ -1,2 +1,2 @@
-const inserter = $I("STONKS", "en-GB");
+const inserter = $I();
 console.info(inserter);

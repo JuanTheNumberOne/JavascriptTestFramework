@@ -7,15 +7,14 @@
     // Create the property used to initialize
     Inserter.init = function(word, language) {
         const self = this;
-        self.word = word || "Insert";
         self.language = returnSupportedLanguage(language, isLanguageSupported);
+        self.word = word || insertedWord[self.language];
     };
 
     // Set the prototype of the inserter
     Inserter.prototype = { test: "test"};
     // Set the prototype of init to point to the prototype of Inserter
     Inserter.init.prototype = Inserter.prototype;
-
 
     // Language support ---------------------------------------------------------
     const supportedLanguages = {
@@ -50,6 +49,17 @@
     }
 
     //--------------------------------------------------------------------------
+    
+    // Inserted word  ----------------------------------------------------
+    const insertedWord = (function(){
+        const obj = {};
+        obj[supportedLanguages.english] = "It just Works!";
+        obj[supportedLanguages.spanish] = "Simplemente Funciona!";
+        obj[supportedLanguages.polish] = "Po prostu Dziala!";
+
+        return obj;
+    })()
+    // --------------------------------------------------------------------------
 
     // Create the global object referencing the library object
     if (global && !global.Inserter && !global.$I) {
